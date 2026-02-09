@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../trigger.config.ts"],
-  "sourcesContent": ["import { defineConfig } from \"@trigger.dev/sdk/v3\";\n\nexport default defineConfig({\n  // Replace with actual Project Ref from Trigger.dev dashboard\n  project: \"proj_bvwcminjoblnrenhkpel\",\n\n  dirs: [\"src/trigger\"],\n  runtime: \"node\",\n  logLevel: \"log\",\n\n  // Required by newer CLI versions\n  maxDuration: 60,\n\n  retries: {\n      enabledInDev: true,\n      default: {\n          maxAttempts: 3,\n          minTimeoutInMs: 1000,\n          maxTimeoutInMs: 10000,\n          factor: 2,\n          randomize: true,\n      },\n  },\n\n  build: {},\n});\nexport const resolveEnvVars = undefined;"],
-  "mappings": ";;;;;;;;;AAAA;AAEA,IAAO,yBAAQ,aAAa;AAAA;AAAA,EAE1B,SAAS;AAAA,EAET,MAAM,CAAC,aAAa;AAAA,EACpB,SAAS;AAAA,EACT,UAAU;AAAA;AAAA,EAGV,aAAa;AAAA,EAEb,SAAS;AAAA,IACL,cAAc;AAAA,IACd,SAAS;AAAA,MACL,aAAa;AAAA,MACb,gBAAgB;AAAA,MAChB,gBAAgB;AAAA,MAChB,QAAQ;AAAA,MACR,WAAW;AAAA,IACf;AAAA,EACJ;AAAA,EAEA,OAAO,CAAC;AACV,CAAC;AACM,IAAM,iBAAiB;",
-  "names": []
-}
