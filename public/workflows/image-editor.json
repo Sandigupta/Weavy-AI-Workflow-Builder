@@ -1,0 +1,134 @@
+{
+    "version": "1.0",
+    "name": "Image Editor Pipeline",
+    "description": "Crop an image and describe the result",
+    "nodes": [
+        {
+            "id": "upload-1",
+            "type": "uploadImage",
+            "position": {
+                "x": 100,
+                "y": 200
+            },
+            "data": {
+                "label": "Original Image",
+                "imageUrl": "",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "image_url",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "crop-1",
+            "type": "cropImage",
+            "position": {
+                "x": 400,
+                "y": 200
+            },
+            "data": {
+                "label": "Crop to Square",
+                "width": 512,
+                "height": 512,
+                "inputs": [
+                    {
+                        "id": "image_url",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Cropped",
+                        "type": "image"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "text-1",
+            "type": "textNode",
+            "position": {
+                "x": 400,
+                "y": 400
+            },
+            "data": {
+                "label": "Description Prompt",
+                "text": "Describe the main subject in this cropped image. Focus on the central element that was kept after cropping.",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "llm-1",
+            "type": "runAnyLLM",
+            "position": {
+                "x": 750,
+                "y": 280
+            },
+            "data": {
+                "label": "Describe Cropped",
+                "model": "gemini-pro",
+                "output": "",
+                "inputs": [
+                    {
+                        "id": "system_prompt",
+                        "label": "System Prompt",
+                        "type": "text"
+                    },
+                    {
+                        "id": "user_message",
+                        "label": "User Message",
+                        "type": "text"
+                    },
+                    {
+                        "id": "images",
+                        "label": "Images",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Response",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "upload-1",
+            "target": "crop-1",
+            "sourceHandle": "image_url",
+            "targetHandle": "image_url"
+        },
+        {
+            "id": "e2",
+            "source": "crop-1",
+            "target": "llm-1",
+            "sourceHandle": "output",
+            "targetHandle": "images"
+        },
+        {
+            "id": "e3",
+            "source": "text-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "user_message"
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "version": "1.0",
+    "name": "Video Thumbnail",
+    "description": "Extract a thumbnail frame from any video",
+    "nodes": [
+        {
+            "id": "video-1",
+            "type": "uploadVideo",
+            "position": {
+                "x": 100,
+                "y": 200
+            },
+            "data": {
+                "label": "Upload Video",
+                "videoUrl": "",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "video_url",
+                        "label": "Video",
+                        "type": "video"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "extract-1",
+            "type": "extractFrame",
+            "position": {
+                "x": 450,
+                "y": 200
+            },
+            "data": {
+                "label": "Extract Thumbnail",
+                "timestamp": 1,
+                "inputs": [
+                    {
+                        "id": "video_url",
+                        "label": "Video",
+                        "type": "video"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "video-1",
+            "target": "extract-1",
+            "sourceHandle": "video_url",
+            "targetHandle": "video_url"
+        }
+    ]
+}

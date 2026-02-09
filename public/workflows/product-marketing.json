@@ -1,0 +1,127 @@
+{
+    "version": "1.0",
+    "name": "Product Marketing Kit",
+    "description": "Generate marketing copy for a product image",
+    "nodes": [
+        {
+            "id": "upload-1",
+            "type": "uploadImage",
+            "position": {
+                "x": 100,
+                "y": 150
+            },
+            "data": {
+                "label": "Product Image",
+                "imageUrl": "",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "image_url",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "text-system",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 350
+            },
+            "data": {
+                "label": "System Role",
+                "text": "You are a professional marketing copywriter. Create compelling, persuasive marketing copy that highlights product benefits and creates desire.",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "text-prompt",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 550
+            },
+            "data": {
+                "label": "Marketing Request",
+                "text": "Analyze this product image and create:\n1. A catchy headline (max 10 words)\n2. A compelling product description (50-100 words)\n3. Three key selling points\n4. A call-to-action phrase",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "llm-1",
+            "type": "runAnyLLM",
+            "position": {
+                "x": 550,
+                "y": 300
+            },
+            "data": {
+                "label": "Marketing Generator",
+                "model": "gemini-pro",
+                "output": "",
+                "inputs": [
+                    {
+                        "id": "system_prompt",
+                        "label": "System Prompt",
+                        "type": "text"
+                    },
+                    {
+                        "id": "user_message",
+                        "label": "User Message",
+                        "type": "text"
+                    },
+                    {
+                        "id": "images",
+                        "label": "Images",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Response",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "upload-1",
+            "target": "llm-1",
+            "sourceHandle": "image_url",
+            "targetHandle": "images"
+        },
+        {
+            "id": "e2",
+            "source": "text-system",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "system_prompt"
+        },
+        {
+            "id": "e3",
+            "source": "text-prompt",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "user_message"
+        }
+    ]
+}

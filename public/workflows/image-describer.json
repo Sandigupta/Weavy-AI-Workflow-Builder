@@ -1,0 +1,100 @@
+{
+    "version": "1.0",
+    "name": "Image Describer",
+    "description": "Upload an image and get an AI-generated description",
+    "nodes": [
+        {
+            "id": "upload-1",
+            "type": "uploadImage",
+            "position": {
+                "x": 100,
+                "y": 200
+            },
+            "data": {
+                "label": "Upload Image",
+                "imageUrl": "",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "image_url",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "text-1",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 400
+            },
+            "data": {
+                "label": "Prompt",
+                "text": "Describe this image in detail. Include the main subjects, colors, composition, mood, and any notable elements.",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "llm-1",
+            "type": "runAnyLLM",
+            "position": {
+                "x": 500,
+                "y": 280
+            },
+            "data": {
+                "label": "Image Analysis",
+                "model": "gemini-pro",
+                "output": "",
+                "inputs": [
+                    {
+                        "id": "system_prompt",
+                        "label": "System Prompt",
+                        "type": "text"
+                    },
+                    {
+                        "id": "user_message",
+                        "label": "User Message",
+                        "type": "text"
+                    },
+                    {
+                        "id": "images",
+                        "label": "Images",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Response",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "upload-1",
+            "target": "llm-1",
+            "sourceHandle": "image_url",
+            "targetHandle": "images"
+        },
+        {
+            "id": "e2",
+            "source": "text-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "user_message"
+        }
+    ]
+}

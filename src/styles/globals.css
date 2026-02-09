@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-dark: #f8f9fa;
+  --color-bg-light: #ffffff;
+  --color-text-dark: #1a1a1a;
+  --color-text-light: #000000;
+  --color-accent-yellow: #F2FF9F;
+  /* Updated to match HTML */
+  --color-accent-green: #00ff88;
+  --color-border-gray: #e5e7eb;
+  --color-card-bg: #ffffff;
+
+  --font-display: 'Inter', 'SF Pro Display', sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', sans-serif;
+}
+
+:root {
+  --bg-dark: #f8f9fa;
+  --bg-light: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-light: #000000;
+  --accent-yellow: #F2FF9F;
+  --border-gray: #e5e7eb;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f9fafb;
+  /* bg-gray-50 */
+  color: #111827;
+  /* text-gray-900 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Custom Classes from HTML */
+.grid-bg {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+.toggle-checkbox:checked {
+  right: 0;
+  border-color: #F2FF9F;
+}
+
+.toggle-checkbox:checked+.toggle-label {
+  background-color: #F2FF9F;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+/* Existing Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

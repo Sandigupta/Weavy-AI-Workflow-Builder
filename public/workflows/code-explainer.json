@@ -1,0 +1,100 @@
+{
+    "version": "1.0",
+    "name": "Code Explainer",
+    "description": "Explain code snippets in simple terms",
+    "nodes": [
+        {
+            "id": "system-1",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 100
+            },
+            "data": {
+                "label": "Explainer Role",
+                "text": "You are a patient coding tutor. Explain code in simple terms that a beginner can understand. Use analogies and examples.",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "code-1",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 300
+            },
+            "data": {
+                "label": "Code to Explain",
+                "text": "const sum = arr.reduce((acc, val) => acc + val, 0);",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "llm-1",
+            "type": "runAnyLLM",
+            "position": {
+                "x": 500,
+                "y": 200
+            },
+            "data": {
+                "label": "Code Explainer",
+                "model": "gemini-pro",
+                "output": "",
+                "inputs": [
+                    {
+                        "id": "system_prompt",
+                        "label": "System Prompt",
+                        "type": "text"
+                    },
+                    {
+                        "id": "user_message",
+                        "label": "User Message",
+                        "type": "text"
+                    },
+                    {
+                        "id": "images",
+                        "label": "Images",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Response",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "system-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "system_prompt"
+        },
+        {
+            "id": "e2",
+            "source": "code-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "user_message"
+        }
+    ]
+}

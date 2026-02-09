@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  clerkId   String?  @unique // For future auth
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  workflows  Workflow[]
+  executions Execution[]
+}
+
+model Workflow {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  nodes       Json     // Storing ReactFlow nodes structure
+  edges       Json     // Storing ReactFlow edges structure
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  executions Execution[]
+}
+
+model Execution {
+  id        String   @id @default(cuid())
+  status    String   @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED
+  scope     String?  // "full", "partial:3", "single:node-id"
+  triggerId String?  // Trigger.dev run ID
+  startedAt DateTime?
+  endedAt   DateTime?
+  createdAt DateTime @default(now())
+
+  workflow   Workflow @relation(fields: [workflowId], references: [id])
+  workflowId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  steps ExecutionStep[]
+}
+
+model ExecutionStep {
+  id          String   @id @default(cuid())
+  nodeId      String   // ReactFlow node ID
+  status      String   @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED
+  logs        Json?    // Array of log entries
+  output      Json?    // Node output data
+  startedAt   DateTime?
+  endedAt     DateTime?
+  error       String?
+
+  execution   Execution @relation(fields: [executionId], references: [id])
+  executionId String
+}

@@ -1,0 +1,73 @@
+{
+    "version": "1.0",
+    "name": "Simple Text Generator",
+    "description": "Enter a prompt and get AI-generated text",
+    "nodes": [
+        {
+            "id": "text-1",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 200
+            },
+            "data": {
+                "label": "Your Prompt",
+                "text": "Write a short poem about technology",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "llm-1",
+            "type": "runAnyLLM",
+            "position": {
+                "x": 450,
+                "y": 200
+            },
+            "data": {
+                "label": "AI Generator",
+                "model": "gemini-pro",
+                "output": "",
+                "inputs": [
+                    {
+                        "id": "system_prompt",
+                        "label": "System Prompt",
+                        "type": "text"
+                    },
+                    {
+                        "id": "user_message",
+                        "label": "User Message",
+                        "type": "text"
+                    },
+                    {
+                        "id": "images",
+                        "label": "Images",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Response",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "text-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "user_message"
+        }
+    ]
+}

@@ -1,0 +1,100 @@
+{
+    "version": "1.0",
+    "name": "Brand Voice Writer",
+    "description": "Generate branded content with a system persona",
+    "nodes": [
+        {
+            "id": "system-1",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 100
+            },
+            "data": {
+                "label": "Brand Voice",
+                "text": "You are a friendly, professional brand voice. Use short sentences. Be helpful and enthusiastic.",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "prompt-1",
+            "type": "textNode",
+            "position": {
+                "x": 100,
+                "y": 300
+            },
+            "data": {
+                "label": "Content Request",
+                "text": "Write a welcome message for new customers",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "text",
+                        "label": "Text",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "llm-1",
+            "type": "runAnyLLM",
+            "position": {
+                "x": 500,
+                "y": 200
+            },
+            "data": {
+                "label": "Content Writer",
+                "model": "gemini-pro",
+                "output": "",
+                "inputs": [
+                    {
+                        "id": "system_prompt",
+                        "label": "System Prompt",
+                        "type": "text"
+                    },
+                    {
+                        "id": "user_message",
+                        "label": "User Message",
+                        "type": "text"
+                    },
+                    {
+                        "id": "images",
+                        "label": "Images",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Response",
+                        "type": "text"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "system-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "system_prompt"
+        },
+        {
+            "id": "e2",
+            "source": "prompt-1",
+            "target": "llm-1",
+            "sourceHandle": "text",
+            "targetHandle": "user_message"
+        }
+    ]
+}

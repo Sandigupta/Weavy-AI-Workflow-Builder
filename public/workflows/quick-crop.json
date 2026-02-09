@@ -1,0 +1,63 @@
+{
+    "version": "1.0",
+    "name": "Quick Crop",
+    "description": "Upload an image and crop it to square",
+    "nodes": [
+        {
+            "id": "upload-1",
+            "type": "uploadImage",
+            "position": {
+                "x": 100,
+                "y": 200
+            },
+            "data": {
+                "label": "Upload Image",
+                "imageUrl": "",
+                "inputs": [],
+                "outputs": [
+                    {
+                        "id": "image_url",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "crop-1",
+            "type": "cropImage",
+            "position": {
+                "x": 450,
+                "y": 200
+            },
+            "data": {
+                "label": "Crop Square",
+                "width": 512,
+                "height": 512,
+                "inputs": [
+                    {
+                        "id": "image_url",
+                        "label": "Image",
+                        "type": "image"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "id": "output",
+                        "label": "Cropped",
+                        "type": "image"
+                    }
+                ]
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "e1",
+            "source": "upload-1",
+            "target": "crop-1",
+            "sourceHandle": "image_url",
+            "targetHandle": "image_url"
+        }
+    ]
+}
