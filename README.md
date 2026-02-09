@@ -1,8 +1,8 @@
-# 🌌 Galexy - AI Workflow Builder
+# 🌌 Wavey - AI Workflow Builder
 
-**Galexy** is a powerful visual workflow builder designed for creating AI-powered content generation pipelines. It empowers users to connect various processing nodes—text, images, videos, and AI models—to automate complex creative tasks without writing code.
+**Wavey** is a powerful visual workflow builder designed for creating AI-powered content generation pipelines. It empowers users to connect various processing nodes—text, images, videos, and AI models—to automate complex creative tasks without writing code.
 
-![Galexy Dashboard](./public/dashboard-preview.png)
+![Wavey Dashboard](./public/dashboard-preview.png)
 
 ## 🚀 Key Features
 
